@@ -1,7 +1,5 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-import com.wisdomlanna.www.dagger2_mvp_example.main.MainInteractor;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
