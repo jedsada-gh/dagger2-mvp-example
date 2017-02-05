@@ -1,6 +1,5 @@
 package com.wisdomlanna.www.dagger2_mvp_example;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -11,9 +10,15 @@ import dagger.Provides;
 
 @Module
 class UtilModule {
+    private MyApplication myApplication;
+
+    UtilModule(MyApplication application) {
+        this.myApplication = application;
+    }
+
     @Provides
     @Singleton
-    SharedPreferences providesSharedPreferences(Application application) {
-        return PreferenceManager.getDefaultSharedPreferences(application);
+    SharedPreferences providesSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(myApplication);
     }
 }

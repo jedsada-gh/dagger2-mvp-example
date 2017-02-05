@@ -1,7 +1,9 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
@@ -9,12 +11,17 @@ import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.base.BaseActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
 
     @BindView(R2.id.tvResult)
     TextView tvResult;
+
+    @Inject
+    SharedPreferences sharedPreferences;
 
     private int result;
 
@@ -28,6 +35,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null)
             getPresenter().plus(5555, 5);
+
+        sharedPreferences.edit().putString("kk", "Jedsada").apply();
+
+        Log.d("POND", sharedPreferences.getString("kk", ""));
     }
 
     @Override
