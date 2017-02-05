@@ -1,7 +1,9 @@
-package com.wisdomlanna.www.dagger2_mvp_example;
+package com.wisdomlanna.www.dagger2_mvp_example.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.wisdomlanna.www.dagger2_mvp_example.R;
 
 public class MainActivity extends AppCompatActivity {
 
