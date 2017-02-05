@@ -1,8 +1,24 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-/**
- * Created by jedsada-pc on 6/2/2560.
- */
+import com.wisdomlanna.www.dagger2_mvp_example.main.MainInteractor;
 
-public class MainInteractorIMpl {
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+class MainInteractorImpl implements MainInteractor {
+
+    @Inject
+    MainInteractorImpl() {
+        super();
+    }
+
+    @Override
+    public void validatePlus(OnValidatePlusListener listener, int... numbers) {
+        try {
+            listener.setOnPlusSuccess(numbers[0] + numbers[1]);
+        } catch (NumberFormatException e) {
+            listener.setOnError(e.getMessage());
+        }
+    }
 }

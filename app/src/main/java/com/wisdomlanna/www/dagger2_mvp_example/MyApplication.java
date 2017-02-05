@@ -1,8 +1,26 @@
 package com.wisdomlanna.www.dagger2_mvp_example;
 
-/**
- * Created by jedsada-pc on 6/2/2560.
- */
+import android.app.Application;
 
-public class MyApplication {
+public class MyApplication extends Application {
+
+    private ApplicationComponent component;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initDependencyInjection();
+    }
+
+    public ApplicationComponent getComponent() {
+        return component;
+    }
+
+    private void initDependencyInjection() {
+        component = DaggerApplicationComponent.builder()
+                .androidModule(new AndroidModule(this))
+                .utilModule(new UtilModule())
+                .build();
+        getComponent().inject(this);
+    }
 }

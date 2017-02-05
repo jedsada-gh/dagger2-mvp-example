@@ -1,8 +1,12 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-/**
- * Created by jedsada-pc on 6/2/2560.
- */
+interface MainInteractor {
 
-public interface MainInteractor {
+    interface OnValidatePlusListener {
+        void setOnError(String message);
+
+        void setOnPlusSuccess(int result);
+    }
+
+    void validatePlus(OnValidatePlusListener listener, int... numbers);
 }

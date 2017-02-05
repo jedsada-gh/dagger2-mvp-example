@@ -1,4 +1,8 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-public interface MainView extends {
+import com.wisdomlanna.www.dagger2_mvp_example.base.BaseView;
+
+interface MainView extends BaseView {
+
+    void showResultPlus(int result);
 }

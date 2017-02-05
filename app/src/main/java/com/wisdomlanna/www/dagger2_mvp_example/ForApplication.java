@@ -1,8 +1,12 @@
 package com.wisdomlanna.www.dagger2_mvp_example;
 
-/**
- * Created by jedsada-pc on 6/2/2560.
- */
+import java.lang.annotation.Retention;
 
-public class ForApplication {
+import javax.inject.Qualifier;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Qualifier
+@Retention(RUNTIME)
+@interface ForApplication {
 }

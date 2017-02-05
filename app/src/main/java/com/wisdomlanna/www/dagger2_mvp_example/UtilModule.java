@@ -1,8 +1,19 @@
 package com.wisdomlanna.www.dagger2_mvp_example;
 
-/**
- * Created by jedsada-pc on 6/2/2560.
- */
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
-public class UtilModule {
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
+@Module
+class UtilModule {
+    @Provides
+    @Singleton
+    SharedPreferences providesSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
 }
