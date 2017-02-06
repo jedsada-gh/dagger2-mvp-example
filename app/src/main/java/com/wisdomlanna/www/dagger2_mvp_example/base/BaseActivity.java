@@ -71,7 +71,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
     }
 
-
+    @Override
+    public void unAuthorizedApi() {
+        if (contentView != null) {
+            Snackbar.make(contentView, getResources().getString(R.string.un_authorize_api), Snackbar.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onDestroy() {

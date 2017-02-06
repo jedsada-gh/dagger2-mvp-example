@@ -1,12 +1,13 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
 import com.wisdomlanna.www.dagger2_mvp_example.base.BasePresenter;
+import com.wisdomlanna.www.dagger2_mvp_example.base.ConnectionCallback;
 import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
 
 import javax.inject.Inject;
 
 class MainPresenter extends BasePresenter<MainView> implements MainInteractor.OnValidatePlusListener
-        , MainInteractor.OnUserInfoGitHubListener {
+        , ConnectionCallback {
 
     private MainInteractor interactor;
 
@@ -34,35 +35,19 @@ class MainPresenter extends BasePresenter<MainView> implements MainInteractor.On
 
     @Override
     public void setOnError(String message) {
+        getView().hideProgressDialog();
         getView().showError(message);
     }
 
     @Override
     public void setOnPlusSuccess(int result) {
+        getView().hideProgressDialog();
         getView().showResultPlus(result);
     }
 
     @Override
-    public void onSuccess(UserInfoDao dao) {
-        if (getView() != null) {
-            getView().hideProgressDialog();
-            getView().showResultUserInfoGitHubApi(dao);
-        }
-    }
-
-    @Override
-    public void onError(String message) {
-        if (getView() != null) {
-            getView().hideProgressDialog();
-            getView().showError(message);
-        }
-    }
-
-    @Override
-    public void onFailure(String message) {
-        if (getView() != null) {
-            getView().hideProgressDialog();
-            getView().showError(message);
-        }
+    public <T> void onSuccess(T t) {
+        getView().hideProgressDialog();
+        getView().showResultUserInfoGitHubApi((UserInfoDao) t);
     }
 }

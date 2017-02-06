@@ -15,4 +15,6 @@ public interface BaseView {
     void hideProgressDialog();
 
     void showError(String errorMessage);
+
+    void unAuthorizedApi();
 }
