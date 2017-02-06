@@ -15,6 +15,6 @@ public class BuildConfiguration implements Config {
 
     @Override
     public String userToken() {
-        return "token";
+        return null;
     }
 }

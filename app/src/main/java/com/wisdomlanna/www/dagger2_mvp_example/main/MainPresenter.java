@@ -1,7 +1,5 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-import android.os.Handler;
-
 import com.wisdomlanna.www.dagger2_mvp_example.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -25,17 +23,18 @@ class MainPresenter extends BasePresenter<MainView> implements MainInteractor.On
         getView().showResultPlus(result);
     }
 
+    void loadUserInfoGitHub(String userName) {
+        getView().showProgressDialog();
+        interactor.loadUserInfoGitHub(userName);
+    }
+
     @Override
     public void setOnError(String message) {
-        getView().hideProgressDialog();
         getView().showError(message);
     }
 
     @Override
     public void setOnPlusSuccess(int result) {
-        new Handler().postDelayed(() -> {
-            getView().hideProgressDialog();
-            getView().showResultPlus(result);
-        }, 1000);
+        getView().showResultPlus(result);
     }
 }

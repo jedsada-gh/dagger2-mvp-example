@@ -3,7 +3,9 @@ package com.wisdomlanna.www.dagger2_mvp_example.module;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wisdomlanna.www.dagger2_mvp_example.MyApplication;
+import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
+import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApiDataSource;
+import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubDataSource;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
 
 import java.util.concurrent.TimeUnit;
@@ -22,13 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    private MyApplication myApplication;
     private static final int TIME_OUT = 60;
-    private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
-
-    public NetworkModule(MyApplication myApplication) {
-        this.myApplication = myApplication;
-    }
+    private static final String BASE_URL = "https://api.github.com/";
 
     @Singleton
     @Provides
@@ -80,9 +77,15 @@ public class NetworkModule {
         builder.addInterceptor(httpLoggingInterceptor);
     }
 
-//    @Singleton
-//    @Provides
-//    public WeatherService provideWeatherService(Retrofit retrofit) {
-//        return retrofit.create(WeatherService.class);
-//    }
+    @Singleton
+    @Provides
+    GitHubApi provideService(Retrofit retrofit) {
+        return retrofit.create(GitHubApi.class);
+    }
+
+    @Singleton
+    @Provides
+    GitHubDataSource provideDataSource(GitHubApi gitHubApi) {
+        return new GitHubApiDataSource(gitHubApi);
+    }
 }

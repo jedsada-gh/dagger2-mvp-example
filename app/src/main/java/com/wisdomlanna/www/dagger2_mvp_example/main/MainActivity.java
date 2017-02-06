@@ -31,6 +31,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        getPresenter().loadUserInfoGitHub("pondthaitay");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null)

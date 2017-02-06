@@ -27,7 +27,7 @@ public class MyApplication extends Application {
         component = DaggerApplicationComponent.builder()
                 .androidModule(new AndroidModule(this))
                 .utilModule(new UtilModule(this))
-                .networkModule(new NetworkModule(this))
+                .networkModule(new NetworkModule())
                 .build();
         getComponent().inject(this);
     }

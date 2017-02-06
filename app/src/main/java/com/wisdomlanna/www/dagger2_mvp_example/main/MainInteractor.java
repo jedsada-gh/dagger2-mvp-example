@@ -9,4 +9,6 @@ interface MainInteractor {
     }
 
     void validatePlus(OnValidatePlusListener listener, int... numbers);
+
+    void loadUserInfoGitHub(String userName);
 }
