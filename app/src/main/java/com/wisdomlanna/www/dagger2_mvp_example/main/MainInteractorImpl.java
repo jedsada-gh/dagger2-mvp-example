@@ -36,13 +36,10 @@ class MainInteractorImpl implements MainInteractor {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful())
                         listener.onSuccess(response.body());
-                    } else {
+                    else
                         listener.onError(response.message());
-                    }
-                }, throwable -> {
-                    listener.onFailure(throwable.getMessage());
-                });
+                }, throwable -> listener.onFailure(throwable.getMessage()));
     }
 }
