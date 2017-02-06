@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
+import com.wisdomlanna.www.dagger2_mvp_example.util.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +16,10 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.ConnectionPool;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,8 +33,27 @@ public class NetworkModule {
     @Provides
     @Singleton
     Cache provideOkHttpCache(Context context) {
-        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        int cacheSize = 10 * 1024 * 1024;
         return new Cache(context.getCacheDir(), cacheSize);
+    }
+
+    @Provides
+    @Singleton
+    Interceptor provideInterceptor(Utils utils) {
+        return chain -> {
+            Response response = chain.proceed(chain.request());
+            if (utils.isNetworkAvailable()) {
+                int maxAge = 60; // read from cache for 1 minute
+                return response.newBuilder()
+                        .header("Cache-Control", "public, max-age=" + maxAge)
+                        .build();
+            } else {
+                int maxStale = 60 * 60 * 24 * 28; // tolerate 4-weeks stale
+                return response.newBuilder()
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                        .build();
+            }
+        };
     }
 
     @Provides
@@ -45,9 +67,11 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    OkHttpClient.Builder provideOkHttpClient(Config config, Cache cache) {
+    OkHttpClient.Builder provideOkHttpClient(Config config, Cache cache, Interceptor interceptor) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addNetworkInterceptor(interceptor);
         httpClient.cache(cache);
+
         httpClient.connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)

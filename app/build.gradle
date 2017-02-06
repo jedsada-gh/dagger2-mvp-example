@@ -66,7 +66,11 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.5.1'
 
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile("com.squareup.retrofit2:converter-gson:$retrofitVersion") {
+        exclude module: 'com.google.code.gson'
+    }
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    compile 'com.google.code.gson:gson:2.8.0'
 }
