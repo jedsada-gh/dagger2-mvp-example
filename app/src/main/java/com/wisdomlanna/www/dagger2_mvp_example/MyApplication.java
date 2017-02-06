@@ -7,6 +7,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.module.NetworkModule;
 import com.wisdomlanna.www.dagger2_mvp_example.module.UtilModule;
 
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MyApplication extends Application {
 
@@ -17,6 +18,9 @@ public class MyApplication extends Application {
         super.onCreate();
         ButterKnife.setDebug(BuildConfig.DEBUG);
         initDependencyInjection();
+
+        if (BuildConfig.DEBUG)
+            Timber.plant(new Timber.DebugTree());
     }
 
     public ApplicationComponent getComponent() {
