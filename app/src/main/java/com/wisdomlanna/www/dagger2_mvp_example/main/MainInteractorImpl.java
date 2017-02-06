@@ -1,6 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
-import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApiDataSource;
+import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -8,15 +8,17 @@ import javax.inject.Singleton;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static dagger.internal.Preconditions.checkNotNull;
+
 @Singleton
 class MainInteractorImpl implements MainInteractor {
 
-    @Inject
-    GitHubApiDataSource gitHubApi;
+    private GitHubApi gitHubApi;
 
     @Inject
-    MainInteractorImpl() {
+    MainInteractorImpl(GitHubApi gitHubApi) {
         super();
+        this.gitHubApi = checkNotNull(gitHubApi);
     }
 
     @Override
@@ -29,12 +31,18 @@ class MainInteractorImpl implements MainInteractor {
     }
 
     @Override
-    public void loadUserInfoGitHub(String userName) {
-        gitHubApi.weather(userName)
+    public void loadUserInfoGitHub(String userName, OnUserInfoGitHubListener listener) {
+        gitHubApi.getUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userInfoDaoResponse -> {
-
+                .subscribe(response -> {
+                    if (response.isSuccessful()) {
+                        listener.onSuccess(response.body());
+                    } else {
+                        listener.onError(response.message());
+                    }
+                }, throwable -> {
+                    listener.onFailure(throwable.getMessage());
                 });
     }
 }

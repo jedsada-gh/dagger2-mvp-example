@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.location.LocationManager;
 
-import com.wisdomlanna.www.dagger2_mvp_example.ForApplication;
 import com.wisdomlanna.www.dagger2_mvp_example.MyApplication;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.BuildConfiguration;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
@@ -26,7 +25,6 @@ public class AndroidModule {
 
     @Provides
     @Singleton
-    @ForApplication
     Context provideApplicationContext() {
         return application;
     }

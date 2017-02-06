@@ -10,10 +10,12 @@ import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.base.BaseActivity;
+import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
 
@@ -57,6 +59,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public void showResultPlus(int result) {
         this.result = result;
         tvResult.setText(String.format("result : %d", result));
+    }
+
+    @Override
+    public void showResultUserInfoGitHubApi(UserInfoDao dao) {
+        Timber.d("result userName : %s", dao.getName());
     }
 
     @Override

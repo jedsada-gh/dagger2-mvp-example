@@ -1,11 +1,10 @@
 package com.wisdomlanna.www.dagger2_mvp_example.module;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
-import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApiDataSource;
-import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubDataSource;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
 
 import java.util.concurrent.TimeUnit;
@@ -14,6 +13,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Cache;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,11 +27,27 @@ public class NetworkModule {
     private static final int TIME_OUT = 60;
     private static final String BASE_URL = "https://api.github.com/";
 
-    @Singleton
     @Provides
-    Retrofit provideRetrofit(Config config) {
+    @Singleton
+    Cache provideOkHttpCache(Context context) {
+        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        return new Cache(context.getCacheDir(), cacheSize);
+    }
+
+    @Provides
+    @Singleton
+    Gson provideGson() {
+        return new GsonBuilder()
+                .setLenient()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient.Builder provideOkHttpClient(Config config, Cache cache) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        Retrofit.Builder builder = new Retrofit.Builder();
+        httpClient.cache(cache);
         httpClient.connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
@@ -52,20 +68,20 @@ public class NetworkModule {
             return chain.proceed(request);
         });
 
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                .create();
+        return httpClient;
+    }
 
+    @Singleton
+    @Provides
+    Retrofit provideRetrofit(Config config, Gson gson, OkHttpClient.Builder httpClient) {
         addLoggingInterceptor(httpClient, config);
-
-        return builder.baseUrl(BASE_URL)
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
                 .build();
     }
-
 
     private void addLoggingInterceptor(final OkHttpClient.Builder builder, final Config config) {
         if (!config.isDebug()) {
@@ -75,17 +91,5 @@ public class NetworkModule {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(httpLoggingInterceptor);
-    }
-
-    @Singleton
-    @Provides
-    GitHubApi provideService(Retrofit retrofit) {
-        return retrofit.create(GitHubApi.class);
-    }
-
-    @Singleton
-    @Provides
-    GitHubDataSource provideDataSource(GitHubApi gitHubApi) {
-        return new GitHubApiDataSource(gitHubApi);
     }
 }
