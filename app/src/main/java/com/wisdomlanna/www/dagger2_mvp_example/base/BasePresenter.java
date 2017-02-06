@@ -4,7 +4,7 @@ import android.content.res.Resources;
 
 import javax.inject.Inject;
 
-public abstract class BasePresenter<V extends BaseView> {
+public abstract class BasePresenter<V extends BaseView> implements BaseView.ErrorCallback {
 
     private V view;
 
@@ -25,5 +25,15 @@ public abstract class BasePresenter<V extends BaseView> {
 
     protected Resources getResources() {
         return resources;
+    }
+
+    @Override
+    public void onServerError(String message) {
+        view.showError(message);
+    }
+
+    @Override
+    public void onGenericError(String message) {
+        view.showError(message);
     }
 }

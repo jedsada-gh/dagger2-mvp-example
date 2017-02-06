@@ -1,6 +1,9 @@
 package com.wisdomlanna.www.dagger2_mvp_example.main;
 
 import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
+import com.wisdomlanna.www.dagger2_mvp_example.base.ConnectionCallback;
+import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.manager.DefaultSubscriber;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -31,15 +34,10 @@ class MainInteractorImpl implements MainInteractor {
     }
 
     @Override
-    public void loadUserInfoGitHub(String userName, OnUserInfoGitHubListener listener) {
+    public void loadUserInfoGitHub(String userName, ConnectionCallback callback) {
         gitHubApi.getUserInfo(userName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    if (response.isSuccessful())
-                        listener.onSuccess(response.body());
-                    else
-                        listener.onError(response.message());
-                }, throwable -> listener.onFailure(throwable.getMessage()));
+                .subscribe(new DefaultSubscriber<UserInfoDao>(callback));
     }
 }
