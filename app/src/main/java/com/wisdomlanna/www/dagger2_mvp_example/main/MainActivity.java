@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null)
-            getPresenter().plus(5555, 5);
+            getPresenter().plus(5, 5);
 
         sharedPreferences.edit().putString("kk", "Jedsada").apply();
 

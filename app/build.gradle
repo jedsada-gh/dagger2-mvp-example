@@ -21,8 +21,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,6 +38,8 @@ ext {
     supportVersion = "25.1.1"
     butterknifeVersion = "8.5.1"
     dagger2Version = "2.9"
+    rxVersion = "2.0.1"
+    retrofitVersion = "2.1.0"
 }
 
 dependencies {
@@ -42,6 +48,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.2'
+    testCompile 'org.powermock:powermock-core:1.6.6'
 
     compile "com.android.support:appcompat-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"
@@ -52,5 +60,13 @@ dependencies {
     compile "com.google.dagger:dagger:$dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger2Version"
 
+    compile "io.reactivex.rxjava2:rxandroid:$rxVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rxVersion"
+
     compile 'com.jakewharton.timber:timber:4.5.1'
+
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 }

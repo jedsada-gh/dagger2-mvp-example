@@ -1,8 +1,11 @@
-package com.wisdomlanna.www.dagger2_mvp_example;
+package com.wisdomlanna.www.dagger2_mvp_example.module;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.LocationManager;
+
+import com.wisdomlanna.www.dagger2_mvp_example.ForApplication;
+import com.wisdomlanna.www.dagger2_mvp_example.MyApplication;
 
 import javax.inject.Singleton;
 
@@ -12,10 +15,10 @@ import dagger.Provides;
 import static android.content.Context.LOCATION_SERVICE;
 
 @Module
-class AndroidModule {
+public class AndroidModule {
     private final MyApplication application;
 
-    AndroidModule(MyApplication application) {
+    public AndroidModule(MyApplication application) {
         this.application = application;
     }
 
