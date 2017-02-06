@@ -24,7 +24,7 @@ class MainInteractorImpl implements MainInteractor {
     }
 
     @Override
-    public void validatePlus(OnValidatePlusListener listener, int... numbers) {
+    public void validatePlus(OnValidatePlusCallback listener, int... numbers) {
         try {
             listener.setOnPlusSuccess(numbers[0] + numbers[1]);
         } catch (NumberFormatException e) {

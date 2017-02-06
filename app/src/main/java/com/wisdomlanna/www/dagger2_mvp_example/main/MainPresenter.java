@@ -6,7 +6,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
 
 import javax.inject.Inject;
 
-class MainPresenter extends BasePresenter<MainView> implements MainInteractor.OnValidatePlusListener
+class MainPresenter extends BasePresenter<MainView> implements MainInteractor.OnValidatePlusCallback
         , ConnectionCallback {
 
     private MainInteractor interactor;
