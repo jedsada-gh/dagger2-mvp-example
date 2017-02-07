@@ -21,8 +21,3 @@ licenses:
 
 script:
   ./gradlew build
-
-after_script:
-  - make artifacts
-  - curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
-  - ~/bin/artifacts upload artifacts
