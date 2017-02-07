@@ -34,7 +34,7 @@ android {
     productFlavors {
         prototype {
             applicationId "com.wisdomlanna.www.dagger2_mvp_example.prototype"
-            buildConfigField 'String', 'SEVER', '"http://10.0.2.2:8888/"'
+            buildConfigField 'String', 'SEVER', '"http://192.168.2.23:8888/"'
             return void
         }
 
