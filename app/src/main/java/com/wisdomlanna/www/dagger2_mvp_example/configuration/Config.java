@@ -6,4 +6,6 @@ public interface Config {
     String version();
 
     String userToken();
+
+    String serverUrl();
 }

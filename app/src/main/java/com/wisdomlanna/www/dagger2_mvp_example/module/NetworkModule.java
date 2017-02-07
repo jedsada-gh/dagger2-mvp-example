@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     private static final int TIME_OUT = 60;
-    private static final String BASE_URL = "https://api.github.com/";
 
     @Provides
     @Singleton
@@ -100,7 +99,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(Config config, Gson gson, OkHttpClient.Builder httpClient) {
         addLoggingInterceptor(httpClient, config);
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(config.serverUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())

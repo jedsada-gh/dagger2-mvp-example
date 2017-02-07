@@ -55,7 +55,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     public void showProgressDialog() {
-        progressDialog.show();
+        if (!progressDialog.isShowing())
+            progressDialog.show();
     }
 
     @Override
@@ -80,7 +81,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        if(progressDialog != null)
+            progressDialog.cancel();
+
         presenter.detachView();
+        super.onDestroy();
     }
 }

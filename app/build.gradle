@@ -31,6 +31,26 @@ android {
         }
     }
 
+    productFlavors {
+        prototype {
+            applicationId "com.wisdomlanna.www.dagger2_mvp_example.prototype"
+            buildConfigField 'String', 'SEVER', '"http://10.0.2.2:8888/"'
+            return void
+        }
+
+        dev {
+            applicationId "com.wisdomlanna.www.dagger2_mvp_example.dev"
+            buildConfigField 'String', 'SEVER', '"https://api.github.com/"'
+            return void
+        }
+
+        production {
+            applicationId "com.wisdomlanna.www.dagger2_mvp_example"
+            buildConfigField 'String', 'SEVER', '"https://api.github.com/"'
+            return void
+        }
+    }
+
     return void
 }
 
@@ -40,6 +60,7 @@ ext {
     dagger2Version = "2.9"
     rxVersion = "2.0.1"
     retrofitVersion = "2.1.0"
+    okhttp3Version = "3.6.0"
 }
 
 dependencies {
@@ -50,6 +71,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.2'
     testCompile 'org.powermock:powermock-core:1.6.6'
+    testCompile "com.squareup.okhttp3:mockwebserver:$okhttp3Version"
 
     compile "com.android.support:appcompat-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"
@@ -70,7 +92,7 @@ dependencies {
         exclude module: 'com.google.code.gson'
     }
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
 
     compile 'com.google.code.gson:gson:2.8.0'
 }

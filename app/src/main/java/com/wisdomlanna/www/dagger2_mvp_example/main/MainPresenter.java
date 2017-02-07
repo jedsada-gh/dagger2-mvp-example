@@ -47,7 +47,9 @@ class MainPresenter extends BasePresenter<MainView> implements MainInteractor.On
 
     @Override
     public <T> void onSuccess(T t) {
-        getView().hideProgressDialog();
-        getView().showResultUserInfoGitHubApi((UserInfoDao) t);
+        if (getView() != null) {
+            getView().hideProgressDialog();
+            getView().showResultUserInfoGitHubApi((UserInfoDao) t);
+        }
     }
 }

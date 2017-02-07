@@ -29,19 +29,25 @@ public abstract class BasePresenter<V extends BaseView> implements BaseView.Erro
 
     @Override
     public void onServerError(String message) {
-        view.hideProgressDialog();
-        view.showError(message);
+        if(view != null){
+            view.hideProgressDialog();
+            view.showError(message);
+        }
     }
 
     @Override
     public void onGenericError(String message) {
-        view.hideProgressDialog();
-        view.showError(message);
+        if(view != null){
+            view.hideProgressDialog();
+            view.showError(message);
+        }
     }
 
     @Override
     public void onUnAuthorized() {
-        view.hideProgressDialog();
-        view.unAuthorizedApi();
+        if(view != null){
+            view.hideProgressDialog();
+            view.unAuthorizedApi();
+        }
     }
 }
