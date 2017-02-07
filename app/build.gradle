@@ -51,6 +51,10 @@ android {
         }
     }
 
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+
     return void
 }
 

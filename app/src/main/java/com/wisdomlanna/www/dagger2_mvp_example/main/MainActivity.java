@@ -3,7 +3,6 @@ package com.wisdomlanna.www.dagger2_mvp_example.main;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
@@ -45,8 +44,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
             getPresenter().plus(5, 5);
 
         sharedPreferences.edit().putString("kk", "Jedsada").apply();
-
-        Log.d("POND", sharedPreferences.getString("kk", ""));
+        Timber.d(sharedPreferences.getString("kk", ""));
     }
 
     @Override
