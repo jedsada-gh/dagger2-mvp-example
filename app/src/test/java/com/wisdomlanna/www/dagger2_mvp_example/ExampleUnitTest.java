@@ -25,7 +25,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void shouldInjectMockStringFactory() throws Exception {
+    public void validateResultPlus() throws Exception {
         TextView result = (TextView) mainActivity.findViewById(R.id.tvResult);
         assertEquals("result : 10", result.getText());
     }
