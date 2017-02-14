@@ -12,9 +12,6 @@ buildscript {
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.2'
         classpath "gradle.plugin.me.tatarka:gradle-retrolambda:3.5.0"
-        classpath 'com.netflix.nebula:gradle-rxjava-project-plugin:3.+'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -22,8 +19,6 @@ allprojects {
     repositories {
         jcenter()
     }
-
-    apply plugin: 'nebula.rxjava-project'
 }
 
 task clean(type: Delete) {
