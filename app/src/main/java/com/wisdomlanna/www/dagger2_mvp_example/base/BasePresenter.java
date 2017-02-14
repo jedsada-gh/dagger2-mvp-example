@@ -11,11 +11,11 @@ public abstract class BasePresenter<V extends BaseView> implements BaseView.Erro
     @Inject
     Resources resources;
 
-    void attachView(V view) {
+    public void attachView(V view) {
         this.view = view;
     }
 
-    void detachView() {
+    public void detachView() {
         view = null;
     }
 

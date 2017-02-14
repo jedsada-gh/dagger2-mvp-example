@@ -35,14 +35,18 @@ class MainPresenter extends BasePresenter<MainView> implements MainInteractor.On
 
     @Override
     public void setOnError(String message) {
-        getView().hideProgressDialog();
-        getView().showError(message);
+        if(getView() != null) {
+            getView().hideProgressDialog();
+            getView().showError(message);
+        }
     }
 
     @Override
     public void setOnPlusSuccess(int result) {
-        getView().hideProgressDialog();
-        getView().showResultPlus(result);
+        if(getView() != null) {
+            getView().hideProgressDialog();
+            getView().showResultPlus(result);
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.wisdomlanna.www.dagger2_mvp_example.BuildConfig;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
 import com.wisdomlanna.www.dagger2_mvp_example.util.Utils;
 
@@ -28,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkModule {
 
     private static final int TIME_OUT = 60;
+    public static String ENPOINT = BuildConfig.SEVER;
 
     @Provides
     @Singleton
@@ -99,7 +101,7 @@ public class NetworkModule {
     Retrofit provideRetrofit(Config config, Gson gson, OkHttpClient.Builder httpClient) {
         addLoggingInterceptor(httpClient, config);
         return new Retrofit.Builder()
-                .baseUrl(config.serverUrl())
+                .baseUrl(ENPOINT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())

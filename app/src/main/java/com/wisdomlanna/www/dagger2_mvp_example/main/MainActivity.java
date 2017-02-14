@@ -20,6 +20,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @BindView(R2.id.tvResult)
     TextView tvResult;
+    @BindView(R.id.tvUsername)
+    TextView tvUsername;
 
     @Inject
     SharedPreferences sharedPreferences;
@@ -62,6 +64,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     public void showResultUserInfoGitHubApi(UserInfoDao dao) {
         Timber.d("result userName : %s", dao.getName());
+        tvUsername.setText(dao.getName());
     }
 
     @Override

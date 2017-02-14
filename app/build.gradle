@@ -21,10 +21,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -84,9 +80,7 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.2'
-    testCompile 'org.powermock:powermock-core:1.6.6'
-    testCompile "org.robolectric:robolectric:3.2.2"
-    testCompile "com.squareup.okhttp3:mockwebserver:$okhttp3Version"
+    androidTestCompile "com.squareup.okhttp3:mockwebserver:$okhttp3Version"
 
     compile "com.android.support:appcompat-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"
