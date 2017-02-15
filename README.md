@@ -6,6 +6,4 @@ Example : https://github.com/google/dagger
 
 ![alt tag](https://habrastorage.org/files/bc1/d6a/4cc/bc1d6a4cc80a447d94cfade436724c9f.png)
 
-
-Article : http://konmik.com/post/introduction_to_model_view_presenter_on_android
 Example : https://github.com/antoniolg/androidmvp/tree/master/app
