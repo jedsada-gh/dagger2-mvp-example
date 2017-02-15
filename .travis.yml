@@ -2,7 +2,11 @@ language: android
 jdk: oraclejdk8
 
 notifications:
-  email: true
+  webhooks: "https://hooks.slack.com/services/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"
+
+branches:
+  only:
+    - master
 
 android:
   components:
@@ -20,4 +24,18 @@ licenses:
     - 'google-gdk-license-.+'
 
 script:
-  ./gradlew build
+  ./gradlew clean build
+
+deploy:
+  provider: debug
+  file:
+      - "app/build/outputs/apk/*.apk"
+      - "app/build/reports/*"
+  skip_cleanup: true
+
+  on:
+    repo: T-Jedsada/Dagger2_MVP_Example
+    tags: true
+    jdk: oraclejdk8
+  api_key:
+    secure: ${personal_token}
