@@ -27,7 +27,7 @@ script:
   ./gradlew clean build
 
 deploy:
-  provider: debug
+  provider: releases
   file:
       - "app/build/outputs/apk/*.apk"
       - "app/build/reports/*"
