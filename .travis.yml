@@ -27,7 +27,7 @@ script:
   ./gradlew clean build
 
 deploy:
-  provider: pre-release
+  provider: releases
   file_glob: true
   file: app/build/outputs/apk/*.apk
   skip_cleanup: true
