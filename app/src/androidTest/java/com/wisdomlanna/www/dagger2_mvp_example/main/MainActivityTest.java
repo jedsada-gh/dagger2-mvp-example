@@ -39,12 +39,12 @@ public class MainActivityTest extends BaseTestServer {
     }
 
     @Override
-    void setup() {
+    void setBefore() {
 
     }
 
     @Override
-    void destroy() {
+    void setAfter() {
 
     }
 }

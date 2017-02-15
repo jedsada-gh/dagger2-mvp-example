@@ -17,16 +17,16 @@ abstract class BaseTestServer {
 
     private MockWebServer server;
 
-    abstract void setup();
+    abstract void setBefore();
 
-    abstract void destroy();
+    abstract void setAfter();
 
     @Before
     public void startMockWebServer() throws IOException {
         server = new MockWebServer();
         server.start();
         NetworkModule.ENPOINT = server.url("/").toString();
-        setup();
+        setBefore();
     }
 
     String getDataFromFile(String resource) throws IOException {
@@ -36,7 +36,7 @@ abstract class BaseTestServer {
     @After
     public void stopServer() throws Exception {
         server.shutdown();
-        destroy();
+        setAfter();
     }
 
     MockWebServer getServer() {
