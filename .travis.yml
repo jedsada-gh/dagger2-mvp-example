@@ -2,7 +2,7 @@ language: android
 jdk: oraclejdk8
 
 notifications:
-  webhooks: "https://hooks.slack.com/services/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"
+  email: true
 
 branches:
   only:
