@@ -17,9 +17,4 @@ public class BuildConfiguration implements Config {
     public String userToken() {
         return null;
     }
-
-    @Override
-    public String serverUrl() {
-        return BuildConfig.SEVER;
-    }
 }
