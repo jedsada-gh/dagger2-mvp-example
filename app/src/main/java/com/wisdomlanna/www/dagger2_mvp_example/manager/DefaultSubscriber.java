@@ -1,6 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.manager;
 
-import com.wisdomlanna.www.dagger2_mvp_example.base.ConnectionCallback;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseInterface;
 
 import java.net.HttpURLConnection;
 
@@ -10,9 +10,15 @@ import timber.log.Timber;
 
 public class DefaultSubscriber<T> extends DefaultObserver<Response<T>> {
 
-    private ConnectionCallback callback;
+    private NetworkCallback callback;
 
-    public DefaultSubscriber(ConnectionCallback callback) {
+    public interface NetworkCallback extends BaseInterface.NetworkErrorCallback {
+        <T> void onSuccess(T result);
+
+        void onFailure(String message);
+    }
+
+    public DefaultSubscriber(NetworkCallback callback) {
         this.callback = callback;
     }
 
@@ -31,7 +37,7 @@ public class DefaultSubscriber<T> extends DefaultObserver<Response<T>> {
     public void onError(Throwable t) {
         Timber.d(t.getMessage());
         try {
-            callback.onServerError(t.getMessage());
+            callback.onFailure(t.getMessage());
         } catch (Throwable e) {
             Timber.d(e.getMessage());
         }
@@ -39,6 +45,6 @@ public class DefaultSubscriber<T> extends DefaultObserver<Response<T>> {
 
     @Override
     public void onComplete() {
-        // TODO : something
+        // TODO : somethings on complete
     }
 }

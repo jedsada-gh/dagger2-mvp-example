@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wisdomlanna.www.dagger2_mvp_example.BuildConfig;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
-import com.wisdomlanna.www.dagger2_mvp_example.util.Utils;
+import com.wisdomlanna.www.dagger2_mvp_example.Utils;
 
 import java.util.concurrent.TimeUnit;
 

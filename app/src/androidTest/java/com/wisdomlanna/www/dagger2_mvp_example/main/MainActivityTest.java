@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wisdomlanna.www.dagger2_mvp_example.R;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

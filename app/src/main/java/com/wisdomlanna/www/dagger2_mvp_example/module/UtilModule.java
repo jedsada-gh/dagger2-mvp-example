@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.wisdomlanna.www.dagger2_mvp_example.util.Utils;
+import com.wisdomlanna.www.dagger2_mvp_example.Utils;
 
 import javax.inject.Singleton;
 

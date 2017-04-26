@@ -19,9 +19,7 @@ public class MyApplication extends Application {
         super.onCreate();
         ButterKnife.setDebug(BuildConfig.DEBUG);
         initDependencyInjection();
-
-        if (BuildConfig.DEBUG)
-            Timber.plant(new Timber.DebugTree());
+        if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
     }
 
     public ApplicationComponent getComponent() {

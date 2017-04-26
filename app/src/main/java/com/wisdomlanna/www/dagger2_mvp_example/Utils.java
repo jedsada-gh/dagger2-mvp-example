@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.util;
+package com.wisdomlanna.www.dagger2_mvp_example;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

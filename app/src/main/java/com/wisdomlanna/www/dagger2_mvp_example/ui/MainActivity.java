@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.main;
+package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -8,15 +8,15 @@ import android.widget.TextView;
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
-import com.wisdomlanna.www.dagger2_mvp_example.base.BaseActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainInterface.View {
 
     @BindView(R2.id.tvResult)
     TextView tvResult;
@@ -27,32 +27,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     SharedPreferences sharedPreferences;
 
     private int result;
-
-    @Override
-    protected int layoutToInflate() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getPresenter().loadUserInfoGitHub("pondthaitay");
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState == null)
-            getPresenter().plus(5, 5);
-
-        sharedPreferences.edit().putString("kk", "Jedsada").apply();
-        Timber.d(sharedPreferences.getString("kk", ""));
-    }
-
-    @Override
-    protected void doInjection(ApplicationComponent component) {
-        component.inject(this);
-    }
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -68,6 +42,47 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     }
 
     @Override
+    protected int layoutToInflate() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void doInjection(ApplicationComponent component) {
+        component.inject(this);
+    }
+
+    @Override
+    protected void startActivity() {
+        getPresenter().loadUserInfo("pondthaitay");
+    }
+
+    @Override
+    protected void stopActivity() {
+
+    }
+
+    @Override
+    protected void bindView() {
+
+    }
+
+    @Override
+    protected void setupInstance() {
+        sharedPreferences.edit().putString("kk", "Jedsada").apply();
+        Timber.d(sharedPreferences.getString("kk", ""));
+    }
+
+    @Override
+    protected void setupView() {
+
+    }
+
+    @Override
+    protected void initialize() {
+        getPresenter().plus(5, 5);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("result", result);
@@ -77,6 +92,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         result = savedInstanceState.getInt("result");
-        getPresenter().restoreResultPlus(result);
+        getPresenter().plus(result, 0);
     }
 }
