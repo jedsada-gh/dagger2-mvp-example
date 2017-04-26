@@ -22,10 +22,6 @@ public class MyApplication extends Application {
         if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
     }
 
-    public ApplicationComponent getComponent() {
-        return component;
-    }
-
     private void initDependencyInjection() {
         component = DaggerApplicationComponent.builder()
                 .androidModule(new AndroidModule(this))
@@ -33,6 +29,10 @@ public class MyApplication extends Application {
                 .networkModule(new NetworkModule())
                 .apiModule(new ApiModule())
                 .build();
-        getComponent().inject(this);
+        component().inject(this);
+    }
+
+    public ApplicationComponent component() {
+        return component;
     }
 }

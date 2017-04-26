@@ -53,7 +53,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         if (layoutToInflate() == 0) throw new MvpNotSetLayoutException();
         setContentView(layoutToInflate());
-        doInjection(((MyApplication) getApplication()).getComponent());
+        doInjection(((MyApplication) getApplication()).component());
         ButterKnife.bind(this);
         presenter.attachView(this);
         bindView();
