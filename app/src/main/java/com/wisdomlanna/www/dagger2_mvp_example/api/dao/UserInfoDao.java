@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.dao;
+package com.wisdomlanna.www.dagger2_mvp_example.api.dao;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

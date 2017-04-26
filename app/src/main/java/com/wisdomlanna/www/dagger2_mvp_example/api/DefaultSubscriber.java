@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.manager;
+package com.wisdomlanna.www.dagger2_mvp_example.api;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseInterface;
 
@@ -12,7 +12,7 @@ public class DefaultSubscriber<T> extends DefaultObserver<Response<T>> {
 
     private NetworkCallback callback;
 
-    public interface NetworkCallback extends BaseInterface.NetworkErrorCallback {
+    public interface NetworkCallback extends BaseInterface.UnAuthorizedCallback {
         <T> void onSuccess(T result);
 
         void onFailure(String message);
@@ -29,7 +29,7 @@ public class DefaultSubscriber<T> extends DefaultObserver<Response<T>> {
         } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
             callback.onUnAuthorized();
         } else {
-            callback.onGenericError(response.message());
+            callback.onFailure(response.message());
         }
     }
 

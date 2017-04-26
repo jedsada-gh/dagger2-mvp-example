@@ -5,7 +5,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.ui.base.exception.MvpViewNotAttac
 import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<V extends BaseInterface.View>
-        implements BaseInterface.NetworkErrorCallback, BaseInterface.Presenter<V> {
+        implements BaseInterface.UnAuthorizedCallback, BaseInterface.Presenter<V> {
 
     private WeakReference<V> view;
 
@@ -43,14 +43,6 @@ public abstract class BasePresenter<V extends BaseInterface.View>
     @Override
     public void onViewStop() {
 
-    }
-
-    @Override
-    public void onGenericError(String message) {
-        if (view != null) {
-            view.get().hideProgressDialog();
-            view.get().showError(message);
-        }
     }
 
     @Override

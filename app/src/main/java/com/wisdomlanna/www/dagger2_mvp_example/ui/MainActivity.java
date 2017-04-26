@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
-import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 
 import javax.inject.Inject;

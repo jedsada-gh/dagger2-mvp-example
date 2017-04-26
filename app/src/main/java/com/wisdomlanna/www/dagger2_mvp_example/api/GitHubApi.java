@@ -1,6 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.api;
 
-import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 
 import io.reactivex.Observable;
 import retrofit2.Response;

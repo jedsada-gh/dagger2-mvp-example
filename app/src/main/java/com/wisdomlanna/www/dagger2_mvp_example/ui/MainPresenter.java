@@ -1,8 +1,8 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
 import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
-import com.wisdomlanna.www.dagger2_mvp_example.dao.UserInfoDao;
-import com.wisdomlanna.www.dagger2_mvp_example.manager.DefaultSubscriber;
+import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.api.DefaultSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
 
 import javax.inject.Inject;

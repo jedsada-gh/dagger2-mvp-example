@@ -2,9 +2,7 @@ package com.wisdomlanna.www.dagger2_mvp_example.ui.base;
 
 public class BaseInterface {
 
-    public interface NetworkErrorCallback {
-        void onGenericError(String message);
-
+    public interface UnAuthorizedCallback {
         void onUnAuthorized();
     }
 
