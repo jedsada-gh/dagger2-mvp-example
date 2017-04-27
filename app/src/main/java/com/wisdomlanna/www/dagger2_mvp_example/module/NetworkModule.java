@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wisdomlanna.www.dagger2_mvp_example.BuildConfig;
 import com.wisdomlanna.www.dagger2_mvp_example.Utils;
 import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
@@ -23,6 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
@@ -102,7 +102,7 @@ public class NetworkModule {
         addLoggingInterceptor(httpClient, config);
         return new Retrofit.Builder()
                 .baseUrl(ENPOINT)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
                 .build();

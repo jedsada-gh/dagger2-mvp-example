@@ -4,11 +4,11 @@ import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseInterface;
 
 import java.net.HttpURLConnection;
 
+import io.reactivex.observers.DefaultObserver;
 import retrofit2.Response;
-import rx.Subscriber;
 import timber.log.Timber;
 
-public class BaseSubscriber<T> extends Subscriber<Response<T>> {
+public class BaseSubscriber<T> extends DefaultObserver<Response<T>> {
 
     private NetworkCallback callback;
 
@@ -18,7 +18,7 @@ public class BaseSubscriber<T> extends Subscriber<Response<T>> {
         void onFailure(String message);
     }
 
-    BaseSubscriber(NetworkCallback callback) {
+    public BaseSubscriber(NetworkCallback callback) {
         this.callback = callback;
     }
 
@@ -34,13 +34,13 @@ public class BaseSubscriber<T> extends Subscriber<Response<T>> {
     }
 
     @Override
-    public void onCompleted() {
-        /* TODO : somethings on complete */
-    }
-
-    @Override
     public void onError(Throwable t) {
         Timber.d(t.getMessage());
         callback.onFailure(t.getMessage());
+    }
+
+    @Override
+    public void onComplete() {
+        /* TODO : somethings on complete */
     }
 }

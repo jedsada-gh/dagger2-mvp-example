@@ -1,21 +1,24 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
-import com.wisdomlanna.www.dagger2_mvp_example.api.GithubManager;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class MainPresenter extends BasePresenter<MainInterface.View> implements MainInterface.Presenter,
         BaseSubscriber.NetworkCallback {
 
-    private GithubManager githubManager;
+    private GitHubApi gitHubApi;
 
     @Inject
-    public MainPresenter(GithubManager githubManager) {
+    public MainPresenter(GitHubApi gitHubApi) {
         super();
-        this.githubManager = githubManager;
+        this.gitHubApi = gitHubApi;
     }
 
     @Override
@@ -36,8 +39,17 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
     public void loadUserInfo(String username) {
         if (getView() != null) {
             getView().showProgressDialog();
-            githubManager.getUserInfo(username, this);
+            gitHubApi.getUserInfo(username)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<>(this));
         }
+    }
+
+    @Override
+    public void callX() {
+//        githubManager.setX();
+//        getView().showX(githubManager.getX());
     }
 
     @Override

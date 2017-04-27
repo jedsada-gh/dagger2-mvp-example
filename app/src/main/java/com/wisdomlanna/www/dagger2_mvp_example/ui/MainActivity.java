@@ -42,6 +42,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     }
 
     @Override
+    public void showX(int result) {
+
+    }
+
+    @Override
     protected int layoutToInflate() {
         return R.layout.activity_main;
     }
@@ -54,6 +59,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Override
     protected void startActivity() {
         getPresenter().loadUserInfo("pondthaitay");
+        getPresenter().callX();
     }
 
     @Override

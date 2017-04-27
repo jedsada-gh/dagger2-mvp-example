@@ -1,7 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.module;
 
-import com.wisdomlanna.www.dagger2_mvp_example.api.GitHubApi;
-import com.wisdomlanna.www.dagger2_mvp_example.api.GithubManager;
+import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
 
 import javax.inject.Singleton;
 
@@ -14,7 +13,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    GithubManager providesGithubService(Retrofit retrofit) {
-        return new GithubManager(retrofit.create(GitHubApi.class));
+    GitHubApi providesGithubService(Retrofit retrofit) {
+        return retrofit.create(GitHubApi.class);
     }
 }

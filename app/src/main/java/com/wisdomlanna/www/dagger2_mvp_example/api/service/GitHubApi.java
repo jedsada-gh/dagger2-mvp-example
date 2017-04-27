@@ -1,11 +1,11 @@
-package com.wisdomlanna.www.dagger2_mvp_example.api;
+package com.wisdomlanna.www.dagger2_mvp_example.api.service;
 
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 
+import io.reactivex.Observable;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 public interface GitHubApi {
 

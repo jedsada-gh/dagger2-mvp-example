@@ -4,45 +4,37 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import rx.Scheduler;
-import rx.android.plugins.RxAndroidPlugins;
-import rx.android.plugins.RxAndroidSchedulersHook;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Scheduler;
+import io.reactivex.android.plugins.RxAndroidPlugins;
+import io.reactivex.internal.schedulers.ExecutorScheduler;
+import io.reactivex.plugins.RxJavaPlugins;
 
 public class RxSchedulersOverrideRule implements TestRule {
 
-    private final RxAndroidSchedulersHook mRxAndroidSchedulersHook = new RxAndroidSchedulersHook() {
+    private final Scheduler immediate = new Scheduler() {
         @Override
-        public rx.Scheduler getMainThreadScheduler() {
-            return Schedulers.io();
+        public Worker createWorker() {
+            return new ExecutorScheduler.ExecutorWorker(Runnable::run);
         }
     };
-
-    private final Func1<Scheduler, Scheduler> mRxJavaImmediateScheduler =
-            new Func1<Scheduler, Scheduler>() {
-                @Override
-                public Scheduler call(Scheduler scheduler) {
-                    return Schedulers.immediate();
-                }
-            };
 
     @Override
     public Statement apply(final Statement base, Description description) {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                RxAndroidPlugins.getInstance().reset();
-                RxAndroidPlugins.getInstance().registerSchedulersHook(mRxAndroidSchedulersHook);
+                RxJavaPlugins.setInitIoSchedulerHandler(scheduler -> immediate);
+                RxJavaPlugins.setInitComputationSchedulerHandler(scheduler -> immediate);
+                RxJavaPlugins.setInitNewThreadSchedulerHandler(scheduler -> immediate);
+                RxJavaPlugins.setInitSingleSchedulerHandler(scheduler -> immediate);
+                RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> immediate);
 
-                RxJavaHooks.reset();
-                RxJavaHooks.setOnIOScheduler(mRxJavaImmediateScheduler);
-                RxJavaHooks.setOnNewThreadScheduler(mRxJavaImmediateScheduler);
-
-                base.evaluate();
-
-                RxAndroidPlugins.getInstance().reset();
-                RxJavaHooks.reset();
+                try {
+                    base.evaluate();
+                } finally {
+                    RxJavaPlugins.reset();
+                    RxAndroidPlugins.reset();
+                }
             }
         };
     }

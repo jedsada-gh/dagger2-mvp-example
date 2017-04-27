@@ -9,11 +9,15 @@ public class MainInterface {
         void showResultPlus(int result);
 
         void showResultUserInfoGitHubApi(UserInfoDao dao);
+
+        void showX(int result);
     }
 
     interface Presenter {
         void plus(int x, int y);
 
         void loadUserInfo(String username);
+
+        void callX();
     }
 }
