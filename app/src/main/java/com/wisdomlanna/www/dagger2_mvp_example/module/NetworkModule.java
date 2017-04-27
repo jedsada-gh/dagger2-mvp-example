@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.wisdomlanna.www.dagger2_mvp_example.BuildConfig;
-import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
 import com.wisdomlanna.www.dagger2_mvp_example.Utils;
+import com.wisdomlanna.www.dagger2_mvp_example.configuration.Config;
 
 import java.util.concurrent.TimeUnit;
 
@@ -109,10 +109,7 @@ public class NetworkModule {
     }
 
     private void addLoggingInterceptor(final OkHttpClient.Builder builder, final Config config) {
-        if (!config.isDebug()) {
-            return;
-        }
-
+        if (!config.isDebug()) return;
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.addInterceptor(httpLoggingInterceptor);

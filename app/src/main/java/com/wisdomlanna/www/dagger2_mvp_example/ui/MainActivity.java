@@ -58,12 +58,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void stopActivity() {
-
+        Timber.d("stop activity");
     }
 
     @Override
     protected void bindView() {
-
+        Timber.d("bind view");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void setupView() {
-
+        Timber.d("setup view");
     }
 
     @Override

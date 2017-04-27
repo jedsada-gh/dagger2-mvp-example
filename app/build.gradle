@@ -81,8 +81,8 @@ ext {
     supportVersion = "25.3.1"
     butterknifeVersion = "8.5.1"
     dagger2Version = "2.10"
-    rxVersion = "2.0.5"
-    rxAndroidVersion = "2.0.1"
+    rxAndroidVersion = "1.2.1"
+    rxVersion = "1.1.6"
     retrofitVersion = "2.1.0"
     okhttp3Version = "3.6.0"
 }
@@ -107,8 +107,8 @@ dependencies {
     compile "com.google.dagger:dagger:$dagger2Version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger2Version"
 
-    compile "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    compile "io.reactivex.rxjava2:rxjava:$rxVersion"
+    compile "io.reactivex:rxandroid:$rxAndroidVersion"
+    compile "io.reactivex:rxjava:$rxVersion"
 
     compile 'com.jakewharton.timber:timber:4.5.1'
 
