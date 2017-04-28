@@ -29,3 +29,8 @@
 
 -dontwarn okhttp3.**
 -dontwarn okio.**
+
+# Add this global rule
+-keepattributes Signature
+
+-dontwarn sun.misc.**

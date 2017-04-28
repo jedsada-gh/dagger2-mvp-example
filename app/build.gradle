@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: "me.tatarka.retrolambda"
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 25
@@ -13,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'SEVER', '"https://api.github.com/"'
     }
 
     compileOptions {
@@ -22,33 +24,12 @@ android {
 
     buildTypes {
         debug {
-            testCoverageEnabled = true
+            testCoverageEnabled true
         }
-
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    productFlavors {
-        prototype {
-            applicationId "com.wisdomlanna.www.dagger2_mvp_example.prototype"
-            buildConfigField 'String', 'SEVER', '"http://192.168.2.23:8888/"'
-            return void
-        }
-
-        dev {
-            applicationId "com.wisdomlanna.www.dagger2_mvp_example.dev"
-            buildConfigField 'String', 'SEVER', '"https://api.github.com/"'
-            return void
-        }
-
-        production {
-            applicationId "com.wisdomlanna.www.dagger2_mvp_example"
-            buildConfigField 'String', 'SEVER', '"https://api.github.com/"'
-            return void
         }
     }
 

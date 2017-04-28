@@ -62,7 +62,10 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     @Override
     public void onFailure(String message) {
-        if (getView() != null) getView().showError(message);
+        if (getView() != null) {
+            getView().hideProgressDialog();
+            getView().showError(message);
+        }
     }
 
     @Override
