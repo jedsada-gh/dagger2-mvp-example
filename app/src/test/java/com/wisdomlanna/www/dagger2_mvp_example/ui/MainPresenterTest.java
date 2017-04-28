@@ -1,5 +1,9 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
+import android.util.Log;
+
+import com.hwangjr.rxbus.Bus;
+import com.hwangjr.rxbus.RxBus;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
@@ -13,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import io.reactivex.Observable;
@@ -27,10 +32,12 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.spy;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
+@PrepareForTest({Log.class, RxBus.class})
 public class MainPresenterTest {
 
     @Rule
@@ -47,13 +54,16 @@ public class MainPresenterTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        mockStatic(RxBus.class);
+
         responseBody = ResponseBody.create(MediaType.parse("application/json"), "");
         jsonUtil = new JsonMockUtility();
 
         presenter = new MainPresenter(gitHubApi);
         presenter.attachView(mockView);
-        MainPresenter spyPresenter = spy(presenter);
-        spyPresenter.attachView(mockView);
+
+        Bus bus = mock(Bus.class);
+        when(RxBus.get()).thenReturn(bus);
     }
 
     @After
@@ -138,25 +148,26 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testViewCreate() throws Exception{
+    public void testViewCreate() throws Exception {
         presenter.onViewCreate();
         verify(mockView).showMessage(R.string.view_create);
     }
 
     @Test
-    public void testViewStart() throws Exception{
+    public void testRxBusRegister() throws Exception {
         presenter.onViewStart();
-        verify(mockView).showMessage(R.string.view_start);
+        verify(RxBus.get(), times(1)).register(presenter);
     }
 
     @Test
-    public void testViewStop() throws Exception{
+    public void testRxBusUnRegister() throws Exception {
         presenter.onViewStop();
-        verify(mockView).showMessage(R.string.view_stop);
+        verify(RxBus.get(), times(1)).unregister(presenter);
     }
 
+
     @Test
-    public void testViewDestroy() throws Exception{
+    public void testViewDestroy() throws Exception {
         presenter.onViewDestroy();
         verify(mockView).showMessage(R.string.view_destroy);
     }

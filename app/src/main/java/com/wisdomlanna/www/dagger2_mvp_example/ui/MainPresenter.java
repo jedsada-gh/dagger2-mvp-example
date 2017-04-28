@@ -1,5 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
+import com.hwangjr.rxbus.RxBus;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
@@ -65,21 +66,21 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     @Override
     public void onViewCreate() {
-        if(getView() != null) getView().showMessage(R.string.view_create);
+        if (getView() != null) getView().showMessage(R.string.view_create);
     }
 
     @Override
     public void onViewDestroy() {
-        if(getView() != null) getView().showMessage(R.string.view_destroy);
+        if (getView() != null) getView().showMessage(R.string.view_destroy);
     }
 
     @Override
     public void onViewStart() {
-        if(getView() != null) getView().showMessage(R.string.view_start);
+        if (getView() != null) RxBus.get().register(this);
     }
 
     @Override
     public void onViewStop() {
-        if(getView() != null) getView().showMessage(R.string.view_stop);
+        if (getView() != null) RxBus.get().unregister(this);
     }
 }

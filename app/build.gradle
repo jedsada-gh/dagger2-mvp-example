@@ -95,4 +95,8 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
 
     compile 'com.google.code.gson:gson:2.8.0'
+
+    compile ('com.hwangjr.rxbus:rxbus:1.0.5') {
+        exclude group: 'com.jakewharton.timber', module: 'timber'
+    }
 }
