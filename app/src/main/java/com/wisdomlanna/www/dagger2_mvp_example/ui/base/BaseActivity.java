@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
@@ -19,7 +20,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseInterface.View {
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity
+        implements BaseInterface.View {
 
     @Inject
     P presenter;
@@ -88,6 +90,21 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     public void showError(String errorMessage) {
         showSnackBar(errorMessage);
+    }
+
+    @Override
+    public void showError(@StringRes int errorMessage) {
+        showSnackBar(getString(errorMessage));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        showSnackBar(message);
+    }
+
+    @Override
+    public void showMessage(@StringRes int message) {
+        showSnackBar(getString(message));
     }
 
     @Override

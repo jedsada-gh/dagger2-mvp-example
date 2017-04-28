@@ -1,5 +1,6 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
+import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
@@ -16,21 +17,21 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
     private GitHubApi gitHubApi;
 
     @Inject
-    public MainPresenter(GitHubApi gitHubApi) {
+    MainPresenter(GitHubApi gitHubApi) {
         super();
         this.gitHubApi = gitHubApi;
     }
 
     @Override
-    public void plus(int x, int y) {
+    public void plus(String x, String y) {
         getView().showProgressDialog();
         if (getView() != null) {
             try {
                 getView().hideProgressDialog();
-                getView().showResultPlus(x + y);
+                getView().showResultPlus(Integer.parseInt(x) + Integer.parseInt(y));
             } catch (NumberFormatException e) {
                 getView().hideProgressDialog();
-                getView().showError(e.getMessage());
+                getView().showError(R.string.invalid_number_format);
             }
         }
     }
@@ -44,12 +45,6 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new BaseSubscriber<>(this));
         }
-    }
-
-    @Override
-    public void callX() {
-//        githubManager.setX();
-//        getView().showX(githubManager.getX());
     }
 
     @Override
@@ -70,21 +65,21 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     @Override
     public void onViewCreate() {
-
+        if(getView() != null) getView().showMessage(R.string.view_create);
     }
 
     @Override
     public void onViewDestroy() {
-
+        if(getView() != null) getView().showMessage(R.string.view_destroy);
     }
 
     @Override
     public void onViewStart() {
-
+        if(getView() != null) getView().showMessage(R.string.view_start);
     }
 
     @Override
     public void onViewStop() {
-
+        if(getView() != null) getView().showMessage(R.string.view_stop);
     }
 }

@@ -1,5 +1,7 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui.base;
 
+import android.support.annotation.StringRes;
+
 public class BaseInterface {
 
     public interface UnAuthorizedCallback {
@@ -11,7 +13,13 @@ public class BaseInterface {
 
         void hideProgressDialog();
 
-        void showError(String errorMessage);
+        void showError(String message);
+
+        void showError(@StringRes int message);
+
+        void showMessage(String message);
+
+        void showMessage(@StringRes int message);
 
         void unAuthorizedApi();
     }

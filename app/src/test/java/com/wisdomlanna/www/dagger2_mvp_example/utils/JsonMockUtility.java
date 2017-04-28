@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.main.utils;
+package com.wisdomlanna.www.dagger2_mvp_example.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

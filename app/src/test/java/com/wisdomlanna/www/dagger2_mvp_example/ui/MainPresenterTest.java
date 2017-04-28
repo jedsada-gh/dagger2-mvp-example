@@ -1,11 +1,10 @@
-package com.wisdomlanna.www.dagger2_mvp_example.main;
+package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
+import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
-import com.wisdomlanna.www.dagger2_mvp_example.main.utils.JsonMockUtility;
-import com.wisdomlanna.www.dagger2_mvp_example.main.utils.RxSchedulersOverrideRule;
-import com.wisdomlanna.www.dagger2_mvp_example.ui.MainInterface;
-import com.wisdomlanna.www.dagger2_mvp_example.ui.MainPresenter;
+import com.wisdomlanna.www.dagger2_mvp_example.utils.JsonMockUtility;
+import com.wisdomlanna.www.dagger2_mvp_example.utils.RxSchedulersOverrideRule;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,13 +22,13 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.spy;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 public class MainPresenterTest {
@@ -64,11 +63,17 @@ public class MainPresenterTest {
 
     @Test
     public void plus() throws Exception {
-        presenter.plus(5, 5);
+        presenter.plus("5", "5");
         verify(mockView, times(1)).showProgressDialog();
         verify(mockView, times(1)).hideProgressDialog();
         verify(mockView, times(1)).showResultPlus(eq(10));
         assertThat(10, is(10));
+    }
+
+    @Test
+    public void plusShouldBeNumberException() throws Exception {
+        presenter.plus("", "5");
+        verify(mockView, times(1)).showError(eq(R.string.invalid_number_format));
     }
 
     @Test
@@ -99,7 +104,7 @@ public class MainPresenterTest {
         mockResponse.message();
         Observable<Response<UserInfoDao>> mockCall = Observable.just(mockResponse);
         when(gitHubApi.getUserInfo(anyString())).thenReturn(mockCall);
-        presenter.loadUserInfo("pondthaitay");
+        presenter.loadUserInfo("");
         verify(mockView, times(1)).showProgressDialog();
 
         TestObserver<Response<UserInfoDao>> testObserver =
@@ -130,5 +135,29 @@ public class MainPresenterTest {
             assertThat(response, is(mockResponse));
             return true;
         });
+    }
+
+    @Test
+    public void testViewCreate() throws Exception{
+        presenter.onViewCreate();
+        verify(mockView).showMessage(R.string.view_create);
+    }
+
+    @Test
+    public void testViewStart() throws Exception{
+        presenter.onViewStart();
+        verify(mockView).showMessage(R.string.view_start);
+    }
+
+    @Test
+    public void testViewStop() throws Exception{
+        presenter.onViewStop();
+        verify(mockView).showMessage(R.string.view_stop);
+    }
+
+    @Test
+    public void testViewDestroy() throws Exception{
+        presenter.onViewDestroy();
+        verify(mockView).showMessage(R.string.view_destroy);
     }
 }

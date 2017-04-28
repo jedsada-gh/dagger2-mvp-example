@@ -42,11 +42,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     }
 
     @Override
-    public void showX(int result) {
-
-    }
-
-    @Override
     protected int layoutToInflate() {
         return R.layout.activity_main;
     }
@@ -59,7 +54,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Override
     protected void startActivity() {
         getPresenter().loadUserInfo("pondthaitay");
-        getPresenter().callX();
     }
 
     @Override
@@ -85,7 +79,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void initialize() {
-        getPresenter().plus(5, 5);
+        getPresenter().plus("5", "5");
     }
 
     @Override
@@ -98,6 +92,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         result = savedInstanceState.getInt("result");
-        getPresenter().plus(result, 0);
+        getPresenter().plus(String.valueOf(result), "0");
     }
 }

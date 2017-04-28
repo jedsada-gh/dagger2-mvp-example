@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         debug {
-            testCoverageEnabled true
+            testCoverageEnabled = true
         }
         release {
             minifyEnabled true
@@ -36,10 +36,6 @@ android {
     lintOptions {
         warning 'InvalidPackage'
         return void
-    }
-
-    testOptions {
-        unitTests.returnDefaultValues = true
     }
 
     tasks.withType(Test) {
@@ -95,7 +91,7 @@ dependencies {
     compile("com.squareup.retrofit2:converter-gson:$retrofitVersion") {
         exclude module: 'com.google.code.gson'
     }
-    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
 
     compile 'com.google.code.gson:gson:2.8.0'

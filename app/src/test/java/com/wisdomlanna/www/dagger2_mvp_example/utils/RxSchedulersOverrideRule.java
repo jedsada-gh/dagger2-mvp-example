@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.main.utils;
+package com.wisdomlanna.www.dagger2_mvp_example.utils;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
