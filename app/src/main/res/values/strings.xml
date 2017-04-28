@@ -5,6 +5,4 @@
     <string name="invalid_number_format">Invalid number format.</string>
     <string name="view_create">view create</string>
     <string name="view_destroy">view destroy</string>
-    <string name="view_start">view start</string>
-    <string name="view_stop">view stop</string>
 </resources>
