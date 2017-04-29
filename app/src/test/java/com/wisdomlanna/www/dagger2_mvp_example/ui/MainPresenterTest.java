@@ -30,6 +30,7 @@ import retrofit2.Response;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -169,10 +170,21 @@ public class MainPresenterTest {
         verify(RxBus.get(), times(1)).unregister(presenter);
     }
 
-
     @Test
     public void testViewDestroy() throws Exception {
         presenter.onViewDestroy();
         verify(mockView).showMessage(R.string.view_destroy);
+    }
+
+    @Test
+    public void testSetResultBusTestBusEvent() {
+        presenter.busTestObj(new TestBusEvent());
+        verify(mockView, times(1)).showResultBusTestBusEvent(any(TestBusEvent.class));
+    }
+
+    @Test
+    public void testSetResultBusTag() {
+        presenter.busTestTag(anyInt());
+        verify(mockView, times(1)).showResultBusTag(anyInt());
     }
 }
