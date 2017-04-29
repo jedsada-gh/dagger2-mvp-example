@@ -116,14 +116,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void onStart() {
         super.onStart();
         startActivity();
-        getPresenter().onViewStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         stopActivity();
-        getPresenter().onViewStop();
     }
 
     @Override

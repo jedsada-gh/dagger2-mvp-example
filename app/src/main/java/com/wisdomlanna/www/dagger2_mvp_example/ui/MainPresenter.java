@@ -1,11 +1,15 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
 import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
 import javax.inject.Inject;
 
@@ -76,11 +80,28 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     @Override
     public void onViewStart() {
-        if (getView() != null) RxBus.get().register(this);
+        if (getView() != null) {
+            RxBus.get().register(this);
+            TestBusEvent event = new TestBusEvent();
+            event.setName("Jedsada Tiwongvorakul");
+            event.setAge(22);
+            RxBus.get().post("tag_test", 555);
+            RxBus.get().post(event);
+        }
     }
 
     @Override
     public void onViewStop() {
         if (getView() != null) RxBus.get().unregister(this);
+    }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD, tags = {@Tag("tag_test")})
+    public void busTestTag(Integer result) {
+        if (getView() != null) getView().showResultBusTag(result);
+    }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    public void busTestObj(TestBusEvent event) {
+        if (getView() != null) getView().showResultBusTestBusEvent(event);
     }
 }

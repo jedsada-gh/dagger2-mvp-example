@@ -7,6 +7,7 @@ import com.hwangjr.rxbus.RxBus;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.JsonMockUtility;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.RxSchedulersOverrideRule;
 
@@ -28,6 +29,7 @@ import retrofit2.Response;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -157,6 +159,8 @@ public class MainPresenterTest {
     public void testRxBusRegister() throws Exception {
         presenter.onViewStart();
         verify(RxBus.get(), times(1)).register(presenter);
+        verify(RxBus.get(), times(1)).post("tag_test", 555);
+        verify(RxBus.get(), times(1)).post(any(TestBusEvent.class));
     }
 
     @Test

@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
 import javax.inject.Inject;
 
@@ -25,6 +27,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Inject
     SharedPreferences sharedPreferences;
+    @Inject
+    Gson gson;
 
     private int result;
 
@@ -37,8 +41,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     public void showResultUserInfoGitHubApi(UserInfoDao dao) {
-        Timber.d("result userName : %s", dao.getName());
+        Timber.d("github result userName : %s", dao.getName());
         tvUsername.setText(dao.getName());
+    }
+
+    @Override
+    public void showResultBusTag(int result) {
+        Timber.d("result bus tag : %d", result);
+    }
+
+    @Override
+    public void showResultBusTestBusEvent(TestBusEvent event) {
+        Timber.d("result bus TestBusEvent : %s", gson.toJson(event));
     }
 
     @Override
@@ -54,11 +68,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Override
     protected void startActivity() {
         getPresenter().loadUserInfo("pondthaitay");
+        getPresenter().onViewStart();
     }
 
     @Override
     protected void stopActivity() {
         Timber.d("stop activity");
+        getPresenter().onViewStop();
     }
 
     @Override
@@ -69,7 +85,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Override
     protected void setupInstance() {
         sharedPreferences.edit().putString("kk", "Jedsada").apply();
-        Timber.d(sharedPreferences.getString("kk", ""));
+        Timber.d("result shared preferences : %s", sharedPreferences.getString("kk", ""));
     }
 
     @Override
