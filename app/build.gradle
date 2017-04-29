@@ -96,7 +96,7 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.0'
 
-    compile ('com.hwangjr.rxbus:rxbus:1.0.5') {
+    compile ('com.hwangjr.rxbus:rxbus:2.0.0-beta') {
         exclude group: 'com.jakewharton.timber', module: 'timber'
     }
 }

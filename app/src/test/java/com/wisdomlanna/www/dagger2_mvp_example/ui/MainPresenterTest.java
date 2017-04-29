@@ -32,7 +32,6 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -46,6 +45,8 @@ public class MainPresenterTest {
     private MainInterface.View mockView;
     @Mock
     private GitHubApi gitHubApi;
+    @Mock
+    private Bus bus;
 
     private MainPresenter presenter;
     private JsonMockUtility jsonUtil;
@@ -62,7 +63,6 @@ public class MainPresenterTest {
         presenter = new MainPresenter(gitHubApi);
         presenter.attachView(mockView);
 
-        Bus bus = mock(Bus.class);
         when(RxBus.get()).thenReturn(bus);
     }
 
