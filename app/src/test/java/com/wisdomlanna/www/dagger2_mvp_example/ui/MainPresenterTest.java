@@ -5,6 +5,7 @@ import android.util.Log;
 import com.hwangjr.rxbus.Bus;
 import com.hwangjr.rxbus.RxBus;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
+import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
@@ -22,6 +23,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
@@ -39,13 +41,15 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Log.class, RxBus.class})
+@PrepareForTest({Log.class, RxBus.class, CompositeDisposable.class})
 public class MainPresenterTest {
 
     @Rule
     public final RxSchedulersOverrideRule schedulers = new RxSchedulersOverrideRule();
     @Mock
     private MainInterface.View mockView;
+    @Mock
+    private CompositeDisposable disposable;
     @Mock
     private GitHubApi gitHubApi;
     @Mock
@@ -63,7 +67,7 @@ public class MainPresenterTest {
         responseBody = ResponseBody.create(MediaType.parse("application/json"), "");
         jsonUtil = new JsonMockUtility();
 
-        presenter = new MainPresenter(gitHubApi);
+        presenter = new MainPresenter(gitHubApi, disposable);
         presenter.attachView(mockView);
 
         when(RxBus.get()).thenReturn(bus);
@@ -77,8 +81,6 @@ public class MainPresenterTest {
     @Test
     public void plus() throws Exception {
         presenter.plus("5", "5");
-        verify(mockView, times(1)).showProgressDialog();
-        verify(mockView, times(1)).hideProgressDialog();
         verify(mockView, times(1)).showResultPlus(eq(10));
         assertThat(10, is(10));
     }
@@ -100,6 +102,8 @@ public class MainPresenterTest {
         when(gitHubApi.getUserInfo(anyString())).thenReturn(mockCall);
         presenter.loadUserInfo("pondthaitay");
         verify(mockView, times(1)).showProgressDialog();
+        verify(disposable, times(1)).add(any(BaseSubscriber.class));
+
         TestObserver<Response<UserInfoDao>> testObserver =
                 gitHubApi.getUserInfo(anyString()).test();
         testObserver.awaitTerminalEvent();
@@ -119,6 +123,7 @@ public class MainPresenterTest {
         when(gitHubApi.getUserInfo(anyString())).thenReturn(mockCall);
         presenter.loadUserInfo("");
         verify(mockView, times(1)).showProgressDialog();
+        verify(disposable, times(1)).add(any(BaseSubscriber.class));
 
         TestObserver<Response<UserInfoDao>> testObserver =
                 gitHubApi.getUserInfo(anyString()).test();
@@ -138,6 +143,7 @@ public class MainPresenterTest {
         when(gitHubApi.getUserInfo(anyString())).thenReturn(mockCall);
         presenter.loadUserInfo("pondthaitay");
         verify(mockView, times(1)).showProgressDialog();
+        verify(disposable, times(1)).add(any(BaseSubscriber.class));
 
         TestObserver<Response<UserInfoDao>> testObserver =
                 gitHubApi.getUserInfo(anyString()).test();
@@ -157,7 +163,7 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testRxBusRegister() throws Exception {
+    public void testViewStart() throws Exception {
         presenter.onViewStart();
         verify(RxBus.get(), times(1)).register(presenter);
         verify(RxBus.get(), times(1)).post("tag_test", 555);
@@ -165,8 +171,9 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void testRxBusUnRegister() throws Exception {
+    public void testViewStop() throws Exception {
         presenter.onViewStop();
+        verify(disposable, times(1)).clear();
         verify(RxBus.get(), times(1)).unregister(presenter);
     }
 

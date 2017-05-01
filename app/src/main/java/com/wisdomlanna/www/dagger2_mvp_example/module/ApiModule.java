@@ -6,10 +6,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Retrofit;
 
 @Module
 public class ApiModule {
+
+    @Provides
+    @Singleton
+    CompositeDisposable providesCompositeDisposable() {
+        return new CompositeDisposable();
+    }
 
     @Provides
     @Singleton

@@ -3,6 +3,9 @@ package com.wisdomlanna.www.dagger2_mvp_example.api.dao;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel(Parcel.Serialization.BEAN)
 public class UserInfoDao {
     @SerializedName("login")
     @Expose
@@ -75,7 +78,7 @@ public class UserInfoDao {
     private Boolean hireable;
     @SerializedName("bio")
     @Expose
-    private Object bio;
+    private String bio;
     @SerializedName("public_repos")
     @Expose
     private Integer publicRepos;
@@ -279,11 +282,11 @@ public class UserInfoDao {
         this.hireable = hireable;
     }
 
-    public Object getBio() {
+    public String getBio() {
         return bio;
     }
 
-    public void setBio(Object bio) {
+    public void setBio(String bio) {
         this.bio = bio;
     }
 

@@ -14,28 +14,28 @@ import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter extends BasePresenter<MainInterface.View> implements MainInterface.Presenter,
         BaseSubscriber.NetworkCallback {
 
     private GitHubApi gitHubApi;
+    private CompositeDisposable disposables;
 
     @Inject
-    MainPresenter(GitHubApi gitHubApi) {
+    MainPresenter(GitHubApi gitHubApi, CompositeDisposable disposables) {
         super();
         this.gitHubApi = gitHubApi;
+        this.disposables = disposables;
     }
 
     @Override
     public void plus(String x, String y) {
-        getView().showProgressDialog();
         if (getView() != null) {
             try {
-                getView().hideProgressDialog();
                 getView().showResultPlus(Integer.parseInt(x) + Integer.parseInt(y));
             } catch (NumberFormatException e) {
-                getView().hideProgressDialog();
                 getView().showError(R.string.invalid_number_format);
             }
         }
@@ -45,10 +45,10 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
     public void loadUserInfo(String username) {
         if (getView() != null) {
             getView().showProgressDialog();
-            gitHubApi.getUserInfo(username)
+            disposables.add(gitHubApi.getUserInfo(username)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new BaseSubscriber<>(this));
+                    .subscribeWith(new BaseSubscriber<>(this)));
         }
     }
 
@@ -92,7 +92,10 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     @Override
     public void onViewStop() {
-        if (getView() != null) RxBus.get().unregister(this);
+        if (getView() != null) {
+            disposables.clear();
+            RxBus.get().unregister(this);
+        }
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD, tags = {@Tag("tag_test")})

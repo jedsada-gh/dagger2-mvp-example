@@ -4,11 +4,11 @@ import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseInterface;
 
 import java.net.HttpURLConnection;
 
-import io.reactivex.observers.DefaultObserver;
+import io.reactivex.observers.DisposableObserver;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class BaseSubscriber<T> extends DefaultObserver<Response<T>> {
+public class BaseSubscriber<T> extends DisposableObserver<Response<T>> {
 
     private NetworkCallback callback;
 

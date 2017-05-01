@@ -13,6 +13,8 @@ import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
+import org.parceler.Parcels;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -30,6 +32,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Inject
     Gson gson;
 
+    private UserInfoDao userInfoDao;
     private int result;
 
     @SuppressLint("DefaultLocale")
@@ -41,7 +44,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     public void showResultUserInfoGitHubApi(UserInfoDao dao) {
-        Timber.d("github result userName : %s", dao.getName());
+        userInfoDao = dao;
         tvUsername.setText(dao.getName());
     }
 
@@ -67,7 +70,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void startActivity() {
-        getPresenter().loadUserInfo("pondthaitay");
+        Timber.d("start activity");
         getPresenter().onViewStart();
     }
 
@@ -95,6 +98,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void initialize() {
+        getPresenter().loadUserInfo("pondthaitay");
         getPresenter().plus("5", "5");
     }
 
@@ -102,12 +106,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("result", result);
+        outState.putParcelable("user_info_dao", Parcels.wrap(userInfoDao));
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         result = savedInstanceState.getInt("result");
+        userInfoDao = Parcels.unwrap(savedInstanceState.getParcelable("user_info_dao"));
+        if (userInfoDao == null) getPresenter().loadUserInfo("pondthaitay");
+        else showResultUserInfoGitHubApi(userInfoDao);
         getPresenter().plus(String.valueOf(result), "0");
     }
 }

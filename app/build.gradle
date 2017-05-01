@@ -60,6 +60,7 @@ ext {
     rxJavaVersion = "1.1.6"
     retrofitVersion = "2.2.0"
     okhttp3Version = "3.6.0"
+    parcelerVersion = "1.1.6"
 }
 
 dependencies {
@@ -99,4 +100,7 @@ dependencies {
     compile ('com.hwangjr.rxbus:rxbus:2.0.0-beta') {
         exclude group: 'com.jakewharton.timber', module: 'timber'
     }
+
+    compile "org.parceler:parceler-api:$parcelerVersion"
+    annotationProcessor "org.parceler:parceler:$parcelerVersion"
 }
