@@ -116,6 +116,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
         userInfoDao = Parcels.unwrap(savedInstanceState.getParcelable("user_info_dao"));
         if (userInfoDao == null) getPresenter().loadUserInfo("pondthaitay");
         else showResultUserInfoGitHubApi(userInfoDao);
-        getPresenter().plus(String.valueOf(result), "0");
+        showResultPlus(result);
     }
 }
