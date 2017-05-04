@@ -8,6 +8,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
+import com.wisdomlanna.www.dagger2_mvp_example.manager.Calculator;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
@@ -22,19 +23,21 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
 
     private GitHubApi gitHubApi;
     private CompositeDisposable disposables;
+    private Calculator calculator;
 
     @Inject
-    MainPresenter(GitHubApi gitHubApi, CompositeDisposable disposables) {
+    MainPresenter(GitHubApi gitHubApi, CompositeDisposable disposables, Calculator calculator) {
         super();
         this.gitHubApi = gitHubApi;
         this.disposables = disposables;
+        this.calculator = calculator;
     }
 
     @Override
     public void plus(String x, String y) {
         if (getView() != null) {
             try {
-                getView().showResultPlus(Integer.parseInt(x) + Integer.parseInt(y));
+                getView().showResultPlus(calculator.plus(Integer.parseInt(x), Integer.parseInt(y)));
             } catch (NumberFormatException e) {
                 getView().showError(R.string.invalid_number_format);
             }

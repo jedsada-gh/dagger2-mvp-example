@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.wisdomlanna.www.dagger2_mvp_example.Utils;
+import com.wisdomlanna.www.dagger2_mvp_example.manager.Calculator;
 
 import javax.inject.Singleton;
 
@@ -24,5 +25,11 @@ public class UtilModule {
     @Singleton
     Utils provideUtils(Context context) {
         return new Utils(context);
+    }
+
+    @Provides
+    @Singleton
+    Calculator provideCalculator() {
+        return new Calculator();
     }
 }

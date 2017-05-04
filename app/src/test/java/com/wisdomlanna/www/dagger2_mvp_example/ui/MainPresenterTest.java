@@ -8,6 +8,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.api.BaseSubscriber;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
+import com.wisdomlanna.www.dagger2_mvp_example.manager.Calculator;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.JsonMockUtility;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.RxSchedulersOverrideRule;
@@ -38,6 +39,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.spy;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -67,7 +69,10 @@ public class MainPresenterTest {
         responseBody = ResponseBody.create(MediaType.parse("application/json"), "");
         jsonUtil = new JsonMockUtility();
 
-        presenter = new MainPresenter(gitHubApi, disposable);
+        Calculator calculator = new Calculator();
+        Calculator spyCalculator = spy(calculator);
+
+        presenter = new MainPresenter(gitHubApi, disposable, spyCalculator);
         presenter.attachView(mockView);
 
         when(RxBus.get()).thenReturn(bus);
@@ -136,6 +141,7 @@ public class MainPresenterTest {
         });
     }
 
+
     @Test
     public void loadUserInfoGitHubUnAuthorized() throws Exception {
         Response<UserInfoDao> mockResponse = Response.error(401, responseBody);
@@ -155,6 +161,8 @@ public class MainPresenterTest {
             return true;
         });
     }
+
+
 
     @Test
     public void testViewCreate() throws Exception {
