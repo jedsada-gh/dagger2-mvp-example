@@ -13,12 +13,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(Parameterized.class)
-public class MainPresenterMetricPlusTest {
+public class CalculatorMetricPlusTest {
 
     private int[] numbers = new int[3];
     private Calculator calculator = new Calculator();
 
-    public MainPresenterMetricPlusTest(int n1, int n2, int n3) {
+    public CalculatorMetricPlusTest(int n1, int n2, int n3) {
         numbers[0] = n1;
         numbers[1] = n2;
         numbers[2] = n3;

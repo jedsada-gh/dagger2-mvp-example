@@ -5,8 +5,11 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        MainPresenterMetricPlusTest.class,
+        CalculatorMetricPlusTest.class,
+        CalculatorMetricMinusTest.class,
+        CalculatorMetricDivideTest.class,
+        CalculatorMetricMultiplyTest.class,
         MainPresenterTest.class
 })
-public class MainPresenterTestSuite {
+public class MainTestSuite {
 }
