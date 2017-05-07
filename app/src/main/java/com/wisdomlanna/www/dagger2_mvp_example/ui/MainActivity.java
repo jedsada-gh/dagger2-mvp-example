@@ -10,6 +10,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
+import com.wisdomlanna.www.dagger2_mvp_example.template.frangment.CustomFragment;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
@@ -69,13 +70,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     }
 
     @Override
-    protected void startActivity() {
+    protected void startView() {
         Timber.d("start activity");
         getPresenter().onViewStart();
     }
 
     @Override
-    protected void stopActivity() {
+    protected void stopView() {
         Timber.d("stop activity");
         getPresenter().onViewStop();
     }
@@ -98,20 +99,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
 
     @Override
     protected void initialize() {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container_fragment, CustomFragment.newInstance())
+                .commit();
         getPresenter().loadUserInfo("pondthaitay");
         getPresenter().plus("5", "5");
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    protected void saveInstanceState(Bundle outState) {
         outState.putInt("result", result);
         outState.putParcelable("user_info_dao", Parcels.wrap(userInfoDao));
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public void restoreView(Bundle savedInstanceState) {
         result = savedInstanceState.getInt("result");
         userInfoDao = Parcels.unwrap(savedInstanceState.getParcelable("user_info_dao"));
         if (userInfoDao == null) getPresenter().loadUserInfo("pondthaitay");

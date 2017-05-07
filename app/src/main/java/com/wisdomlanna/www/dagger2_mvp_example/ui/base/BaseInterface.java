@@ -9,6 +9,9 @@ public class BaseInterface {
     }
 
     public interface View {
+
+        Presenter getPresenter();
+
         void showProgressDialog();
 
         void hideProgressDialog();

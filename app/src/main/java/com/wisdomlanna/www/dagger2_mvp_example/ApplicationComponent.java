@@ -1,11 +1,12 @@
 package com.wisdomlanna.www.dagger2_mvp_example;
 
-import com.wisdomlanna.www.dagger2_mvp_example.template.activity.CustomActivity;
-import com.wisdomlanna.www.dagger2_mvp_example.ui.MainActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.module.AndroidModule;
 import com.wisdomlanna.www.dagger2_mvp_example.module.ApiModule;
 import com.wisdomlanna.www.dagger2_mvp_example.module.NetworkModule;
 import com.wisdomlanna.www.dagger2_mvp_example.module.UtilModule;
+import com.wisdomlanna.www.dagger2_mvp_example.template.activity.CustomActivity;
+import com.wisdomlanna.www.dagger2_mvp_example.template.frangment.CustomFragment;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.MainActivity;
 
 import javax.inject.Singleton;
 
@@ -19,4 +20,6 @@ public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
 
     void inject(CustomActivity customActivity);
+
+    void inject(CustomFragment customFragment);
 }

@@ -7,7 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.MyApplication;
@@ -20,7 +23,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity
+public abstract class BaseFragment<P extends BaseInterface.Presenter> extends Fragment
         implements BaseInterface.View {
 
     @Inject
@@ -41,7 +44,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected abstract void stopView();
 
-    protected abstract void bindView();
+    protected abstract void bindView(View view);
 
     protected abstract void setupInstance();
 
@@ -55,25 +58,32 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     @SuppressWarnings("unchecked")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (layoutToInflate() == 0) throw new MvpNotSetLayoutException();
-        setContentView(layoutToInflate());
-        doInjection(((MyApplication) getApplication()).component());
-        ButterKnife.bind(this);
+        doInjection(((MyApplication) getActivity().getApplicationContext()).component());
         presenter.attachView(this);
-        bindView();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (layoutToInflate() == 0) throw new MvpNotSetLayoutException();
+        View view = inflater.inflate(layoutToInflate(), container, false);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindView(view);
         setupInstance();
         setupView();
         setupProgressDialog();
         getPresenter().onViewCreate();
         if (savedInstanceState == null) initialize();
-    }
-
-    @Override
-    public P getPresenter() {
-        if (presenter != null) return presenter;
-        throw new MvpPresenterNotCreateException();
+        else restoreView(savedInstanceState);
     }
 
     @Override
@@ -112,39 +122,41 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         startView();
+        getPresenter().onViewStart();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         stopView();
+        getPresenter().onViewStop();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        saveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        restoreView(savedInstanceState);
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if (progressDialog != null) progressDialog.cancel();
         getPresenter().onViewDestroy();
         presenter.detachView();
     }
 
+    @Override
+    public P getPresenter() {
+        if (presenter != null) return presenter;
+        throw new MvpPresenterNotCreateException();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveInstanceState(outState);
+    }
+
     private void setupProgressDialog() {
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(getContext());
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getResources().getString(R.string.loading));
     }

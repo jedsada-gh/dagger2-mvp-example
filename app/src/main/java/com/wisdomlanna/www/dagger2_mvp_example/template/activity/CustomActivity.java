@@ -1,9 +1,12 @@
 package com.wisdomlanna.www.dagger2_mvp_example.template.activity;
 
+import android.os.Bundle;
+
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 
-public class CustomActivity extends BaseActivity<CustomPresenter> implements CustomInterface.View {
+public class CustomActivity extends BaseActivity<CustomActivityPresenter>
+        implements CustomActivityInterface.View {
     @Override
     public void testResult() {
 
@@ -20,12 +23,12 @@ public class CustomActivity extends BaseActivity<CustomPresenter> implements Cus
     }
 
     @Override
-    protected void startActivity() {
+    protected void startView() {
 
     }
 
     @Override
-    protected void stopActivity() {
+    protected void stopView() {
 
     }
 
@@ -46,6 +49,16 @@ public class CustomActivity extends BaseActivity<CustomPresenter> implements Cus
 
     @Override
     protected void initialize() {
+
+    }
+
+    @Override
+    protected void saveInstanceState(Bundle outState) {
+
+    }
+
+    @Override
+    public void restoreView(Bundle savedInstanceState) {
 
     }
 }
