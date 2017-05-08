@@ -162,8 +162,6 @@ public class MainPresenterTest {
         });
     }
 
-
-
     @Test
     public void testViewCreate() throws Exception {
         presenter.onViewCreate();
