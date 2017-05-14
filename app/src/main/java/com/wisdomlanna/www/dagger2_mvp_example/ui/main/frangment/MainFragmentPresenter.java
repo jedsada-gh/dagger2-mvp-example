@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui.frangment;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main.frangment;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
 

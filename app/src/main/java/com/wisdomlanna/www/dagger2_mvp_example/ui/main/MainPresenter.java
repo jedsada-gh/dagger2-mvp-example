@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
@@ -26,7 +26,7 @@ public class MainPresenter extends BasePresenter<MainInterface.View> implements 
     private Calculator calculator;
 
     @Inject
-    MainPresenter(GitHubApi gitHubApi, CompositeDisposable disposables, Calculator calculator) {
+    public MainPresenter(GitHubApi gitHubApi, CompositeDisposable disposables, Calculator calculator) {
         super();
         this.gitHubApi = gitHubApi;
         this.disposables = disposables;

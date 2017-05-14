@@ -1,12 +1,13 @@
-package com.wisdomlanna.www.dagger2_mvp_example.template.activity;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.showlist;
 
 import android.os.Bundle;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
+import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 
-public class CustomActivity extends BaseActivity<CustomActivityPresenter>
-        implements CustomActivityInterface.View {
+public class ShowListActivity extends BaseActivity<ShowListActivityPresenter>
+        implements ShowListInterface.View {
     @Override
     public void testResult() {
 
@@ -14,12 +15,12 @@ public class CustomActivity extends BaseActivity<CustomActivityPresenter>
 
     @Override
     protected int layoutToInflate() {
-        return 0;
+        return R.layout.activity_show_list;
     }
 
     @Override
     protected void doInjection(ApplicationComponent component) {
-
+        component.inject(this);
     }
 
     @Override

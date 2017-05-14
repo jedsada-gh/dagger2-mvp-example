@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
-import com.wisdomlanna.www.dagger2_mvp_example.ui.frangment.MainFragment;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.main.frangment.MainFragment;
 
 import org.parceler.Parcels;
 

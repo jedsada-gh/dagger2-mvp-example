@@ -1,7 +1,9 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui.frangment;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main.frangment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,6 +11,7 @@ import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.Utils;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseFragment;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.showlist.ShowListActivity;
 
 import javax.inject.Inject;
 
@@ -23,6 +26,9 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter>
 
     @BindView(R.id.tv_test)
     TextView tvTest;
+    @BindView(R.id.btn_show_list)
+    AppCompatButton btnShoList;
+
     private int number;
 
     public static MainFragment newInstance() {
@@ -61,7 +67,8 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter>
 
     @Override
     protected void bindView(View view) {
-
+        btnShoList.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), ShowListActivity.class)));
     }
 
     @Override

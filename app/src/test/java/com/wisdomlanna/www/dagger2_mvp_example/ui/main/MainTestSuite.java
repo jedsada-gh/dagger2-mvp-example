@@ -1,6 +1,6 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
-import com.wisdomlanna.www.dagger2_mvp_example.ui.frangment.MainFragmentPresenterTest;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.main.frangment.MainFragmentPresenterTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

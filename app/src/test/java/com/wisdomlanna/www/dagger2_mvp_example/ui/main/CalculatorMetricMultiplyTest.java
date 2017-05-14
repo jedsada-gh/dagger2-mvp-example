@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
 import com.wisdomlanna.www.dagger2_mvp_example.manager.Calculator;
 

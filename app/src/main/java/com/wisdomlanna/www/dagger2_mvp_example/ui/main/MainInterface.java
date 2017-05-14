@@ -1,12 +1,12 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseInterface;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
 
-class MainInterface {
+public class MainInterface {
 
-    interface View extends BaseInterface.View {
+    public interface View extends BaseInterface.View {
         void showResultPlus(int result);
 
         void showResultUserInfoGitHubApi(UserInfoDao dao);
@@ -16,7 +16,7 @@ class MainInterface {
         void showResultBusTestBusEvent(TestBusEvent event);
     }
 
-    interface Presenter {
+    public interface Presenter {
         void plus(String x, String y);
 
         void loadUserInfo(String username);

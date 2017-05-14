@@ -1,4 +1,4 @@
-package com.wisdomlanna.www.dagger2_mvp_example.ui;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.main;
 
 import android.util.Log;
 
@@ -10,6 +10,8 @@ import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
 import com.wisdomlanna.www.dagger2_mvp_example.api.service.GitHubApi;
 import com.wisdomlanna.www.dagger2_mvp_example.manager.Calculator;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.main.MainInterface;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.main.MainPresenter;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.JsonMockUtility;
 import com.wisdomlanna.www.dagger2_mvp_example.utils.RxSchedulersOverrideRule;
 
