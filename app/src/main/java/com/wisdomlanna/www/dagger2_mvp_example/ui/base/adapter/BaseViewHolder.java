@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 
-abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(ViewGroup parent, int layout) {
         super(LayoutInflater.from(parent.getContext()).inflate(layout, parent, false));

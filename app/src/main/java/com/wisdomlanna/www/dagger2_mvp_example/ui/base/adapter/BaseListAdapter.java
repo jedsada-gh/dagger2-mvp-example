@@ -22,7 +22,7 @@ public abstract class BaseListAdapter<VH extends BaseViewHolder, P extends BaseL
         presenter.setAdapter( this );
     }
 
-    abstract P createPresenter();
+    public abstract P createPresenter();
 
     @Override
     public P getPresenter(){

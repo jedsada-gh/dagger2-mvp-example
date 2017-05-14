@@ -2,7 +2,7 @@ package com.wisdomlanna.www.dagger2_mvp_example.ui.base.adapter;
 
 import java.util.List;
 
-interface BaseListAdapterInterface {
+public interface BaseListAdapterInterface {
 
     interface Adapter {
         Presenter getPresenter();

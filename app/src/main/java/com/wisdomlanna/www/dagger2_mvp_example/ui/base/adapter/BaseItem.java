@@ -1,7 +1,7 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui.base.adapter;
 
 @org.parceler.Parcel(org.parceler.Parcel.Serialization.BEAN)
-class BaseItem {
+public class BaseItem {
 
     private int type;
 
