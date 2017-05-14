@@ -1,14 +1,14 @@
-package com.wisdomlanna.www.dagger2_mvp_example.template.frangment;
+package com.wisdomlanna.www.dagger2_mvp_example.ui.frangment;
 
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
-class CustomFragmentPresenter extends BasePresenter<CustomFragmentInterface.View>
-        implements CustomFragmentInterface.Presenter {
+class MainFragmentPresenter extends BasePresenter<MainFragmentInterface.View>
+        implements MainFragmentInterface.Presenter {
 
     @Inject
-    CustomFragmentPresenter() {
+    MainFragmentPresenter() {
         super();
     }
 
@@ -30,5 +30,10 @@ class CustomFragmentPresenter extends BasePresenter<CustomFragmentInterface.View
     @Override
     public void onViewStop() {
 
+    }
+
+    @Override
+    public void testFragment() {
+        getView().testResult();
     }
 }

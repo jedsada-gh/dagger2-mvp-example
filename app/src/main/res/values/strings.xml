@@ -5,4 +5,5 @@
     <string name="invalid_number_format">Invalid number format.</string>
     <string name="view_create">view create</string>
     <string name="view_destroy">view destroy</string>
+    <string name="showlistdata">ShowListData</string>
 </resources>

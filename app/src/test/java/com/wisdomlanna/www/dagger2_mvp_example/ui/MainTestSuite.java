@@ -1,5 +1,7 @@
 package com.wisdomlanna.www.dagger2_mvp_example.ui;
 
+import com.wisdomlanna.www.dagger2_mvp_example.ui.frangment.MainFragmentPresenterTest;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -9,7 +11,8 @@ import org.junit.runners.Suite;
         CalculatorMetricMinusTest.class,
         CalculatorMetricDivideTest.class,
         CalculatorMetricMultiplyTest.class,
-        MainPresenterTest.class
+        MainPresenterTest.class,
+        MainFragmentPresenterTest.class
 })
 public class MainTestSuite {
 }

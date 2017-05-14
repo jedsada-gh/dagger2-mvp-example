@@ -10,9 +10,9 @@ import com.wisdomlanna.www.dagger2_mvp_example.ApplicationComponent;
 import com.wisdomlanna.www.dagger2_mvp_example.R;
 import com.wisdomlanna.www.dagger2_mvp_example.R2;
 import com.wisdomlanna.www.dagger2_mvp_example.api.dao.UserInfoDao;
-import com.wisdomlanna.www.dagger2_mvp_example.template.frangment.CustomFragment;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.base.BaseActivity;
 import com.wisdomlanna.www.dagger2_mvp_example.ui.event.TestBusEvent;
+import com.wisdomlanna.www.dagger2_mvp_example.ui.frangment.MainFragment;
 
 import org.parceler.Parcels;
 
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainInt
     @Override
     protected void initialize() {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container_fragment, CustomFragment.newInstance())
+                .add(R.id.container_fragment, MainFragment.newInstance())
                 .commit();
         getPresenter().loadUserInfo("pondthaitay");
         getPresenter().plus("5", "5");
